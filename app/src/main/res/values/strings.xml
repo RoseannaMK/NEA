@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="welcomeText">Welcome to your Carbon Footprint Calculator!</string>
+    <string name="signUpButton">SIGN UP</string>
+    <string name="notSignedUp">Not signed up?</string>
+    <string name="loginButton">LOGIN</string>
+    <string name="confirmPassword">CONFIRM PASSWORD</string>
+    <string name="hintPassword">PASSWORD</string>
+    <string name="hintUsername">USERNAME</string>
+    <string name="loginText">LOGIN</string>
+    <string name="contButton">CONTINUE</string>
+    <string name="my_profile">My Profile</string>
+    <string name="take_audit">TAKE AUDIT</string>
+    <string name="view_score">VIEW SCORE</string>
+    <string name="tips_legislation"><![CDATA[TIPS & LEGISLATION]]></string>
+    <string name="log_out">LOG OUT</string>
+    <string name="profile_pic">ProfilePicture</string>
+    <string name="email_text">EMAIL</string>
+    <string name="signup_text">SIGNUP</string>
+    <string name="registerButton">REGISTER</string>
+    <string name="back_button">BACK</string>
+    <string name="audit_questions">AUDIT QUESTIONS</string>
+    <string name="next_button">NEXT</string>
+    <string name="tips_textview"></string>
+    
+    //questions//
+
+    <string name="answer_yes">YES</string>
+    <string name="answer_no">NO</string>
+    <string name="answer_na">N/A</string>
+
+    <string name="question_vehicle">Does your company provide low emission vehicles ?</string>
+    <string name="question_distance">Employees drive more than 300 miles a day</string>
+    <string name="question_roofrack">Do employees travel with empty roofracks on their vehicles</string>
+    <string name="question_team">Does your office have an ecoteam/sustainability team ?</string>
+    <string name="question_goals">Does your office have green goals to be more eco-friendly ?</string>
+    <string name="question_electrics">Does your office have initiatives to ensure electronics are turned off ?</string>
+    <string name="question_renewable">Does your office use renewable energy ?</string>
+    <string name="question_plants">Are there desk plants and indoor plants in your office ?</string>
+    <string name="question_taps">Does your company have aeroated taps installed ?</string>
+    <string name="question_flush">Does your company have dual flush toilets ?</string>
+    <string name="question_lights">Does your company have motion sensored lights installed ?</string>#
+    <string name="question_bulbs">Does your office use LED bulbs ? Or any other energy efficient alternative ?</string>
+    <string name="question_thermostats">Does your office use programmable thermostats ?</string>
+    <string name="question_draughts">Are there draught exclusers installed in your offices ?</string>
+    <string name="question_glazing">Do your offices have double glazing ?</string>
+    <string name="question_tires">How often do employees check their tire pressure?</string>
+    <string name="answer_monthly">MONTHLY</string>
+    <string name="answer_bimonthly">BI-MONTHLY</string>
+    <string name="answer_biannual">EVERY 6 MONTHS</string>
+    <string name="answer_annually">ANNUALLY</string>
+    <string name="question_fuel">How often do you change your fuel filter?</string>
+    <string name="answer_30000">EVERY 30,000mi</string>
+    <string name="answer_50000">EVERY 50,000mi</string>
+    <string name="answer_80000">EVERY 80,000mi</string>
+    <string name="answer_never">NEVER</string>
+    <string name="question_injectors">How often do you flush your fuel injectors ?</string>
+    <string name="question_wash">Are company vehicles self-washed or washed at a carwash ?</string>
+    <string name="answer_self">SELF-WASHED</string>
+    <string name="answer_carwash">CARWASH</string>
+    <string name="question_paper">How much paper do office workers use per month per person ?</string>
+    <string name="answer_10000">10,000 sheets</string>
+    <string name="answer_20000">20,000 sheets</string>
+    <string name="answer_50000s">50,000 sheets</string>
+    <string name="minimum_password">MUST BE LONGER THAN 6 CHARACTERS</string>
+    <string name="auth_failed">Authenication Failed !</string>
+
+
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "232065112277",
+    "firebase_url": "https://carbonfootprintcalculato-50553.firebaseio.com",
+    "project_id": "carbonfootprintcalculato-50553",
+    "storage_bucket": "carbonfootprintcalculato-50553.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232065112277:android:a92998519e2f6a8c2a6a5c",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232065112277-lr2r5osje94bqt757j41m8t39g045nfc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "01f1a8091ce38b4f593d45d1bbdcf2dd86f53b26"
+          }
+        },
+        {
+          "client_id": "232065112277-927t4qrg4v236t3fgi7e26ttr81uc2sg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC40x1LGwINNZo8JctXbY19AhTyJ-vWVk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232065112277-927t4qrg4v236t3fgi7e26ttr81uc2sg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
