@@ -35,6 +35,7 @@ public class SignUpPage extends AppCompatActivity {
 
     private EditText username_text, password_text, email_text;
     private Button register_button, back_button;
+    private String scoreVal;
 
     //connection to firebase collection
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,11 +61,11 @@ public class SignUpPage extends AppCompatActivity {
 
         authStateListener = new FirebaseAuth.AuthStateListener() { //listens for change in authentication
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) { //will listen for changes in authentication
                 currentUser = firebaseAuth.getCurrentUser(); //check current user is still the same
                 if (currentUser != null) {
                     startActivity(new Intent(SignUpPage.this,
-                            HomePage.class));
+                            Options.class));
                     finish();
                 }
             }
@@ -81,7 +82,7 @@ public class SignUpPage extends AppCompatActivity {
                     String password = password_text.getText().toString().trim();
                     String username = username_text.getText().toString().trim();
 
-                    register_account(email, password, username);
+                    register_account(email, password, username,scoreVal);
                 } else {
                     Toast.makeText(SignUpPage.this,
                             "Please Fill In All Fields",
@@ -93,13 +94,13 @@ public class SignUpPage extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SignUpPage.this,
-                        HomePage.class));
+                startActivity(new Intent( SignUpPage.this,
+                        LoginPage.class));
 
             }
         });
     }
-    private void register_account(String email, String password, final String username) {
+    private void register_account(String email, final String password, final String username, final String scoreVal) {
         if (!TextUtils.isEmpty(email)
                 && !TextUtils.isEmpty(password)
                 && !TextUtils.isEmpty(username)) {
@@ -110,19 +111,35 @@ public class SignUpPage extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             Log.d("TEST","creatinguser test");
                             if (task.isSuccessful()) {
-                                //we take user to add to users activity ??
                                 Log.d("TEST","createUserWithEmail:success");
+                                //add user to database as well as authentication
                                 currentUser = firebaseAuth.getCurrentUser();
 
                                 assert currentUser != null;
                                 final String currentUserId = currentUser.getUid();
 
-                                //Create a user Map to create a user in the User collection
+                                //Create a user Hashmap to create a user in the User collection
                                 Map<String, String> userObj = new HashMap<>();
                                 userObj.put("userId", currentUserId);
                                 userObj.put("username", username);
+                                userObj.put("password",password);
+                                userObj.put("score",scoreVal);
 
-                                //save to our firestore database
+                                //save to our firestore  database
+                                FirebaseFirestore.getInstance().collection("Users")
+                                        .add(userObj)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("Success", "DocumentSnapshot added with ID" + documentReference.getId() + documentReference.toString());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("Failure","Error adding document",e);
+                                            }
+                                        });
                                 collectionReference.add(userObj)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
@@ -132,24 +149,31 @@ public class SignUpPage extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                                 if (Objects.requireNonNull(task.getResult()).exists()) {
-                                                                    //progressBar.setVisibility(View.INVISIBLE);
+
                                                                     String name = task.getResult()
                                                                             .getString("username");
+                                                                    String password = task.getResult()
+                                                                            .getString("password");
+                                                                    String scoreVal = task.getResult()
+                                                                            .getString("score");
 
                                                                     AppAPI appAPI = AppAPI.getInstance();
 
                                                                     appAPI.setUserId(currentUserId);
                                                                     appAPI.setUsername(name);
+                                                                    appAPI.setPassword(password);
+                                                                    appAPI.setScore(scoreVal);
 
                                                                     Intent intent = new Intent(SignUpPage.this, HomePage.class);
                                                                     intent.putExtra("username", name);
                                                                     intent.putExtra("userId", currentUserId);
+                                                                    intent.putExtra("password", password);
+                                                                    intent.putExtra("score",scoreVal);
                                                                     startActivity(intent);
 
                                                                 }else {
                                                                     Toast.makeText(SignUpPage.this, "Authentication failed.",
                                                                             Toast.LENGTH_SHORT).show();
-                                                                    Log.d("TEST","LINE 144");
                                                                 }
 
                                                             }
@@ -166,7 +190,7 @@ public class SignUpPage extends AppCompatActivity {
                                         });
                             }else {
                                 Toast.makeText(SignUpPage.this, "Authentication failed, 172",
-                                        Toast.LENGTH_SHORT).show();
+                                       Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -192,9 +216,6 @@ public class SignUpPage extends AppCompatActivity {
         super.onStart();
         Log.d("TEST","LINE 194");
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        //updateUI(currentUser);
-        //currentUser = firebaseAuth.getCurrentUser();
-        //firebaseAuth.addAuthStateListener(authStateListener);
 
     }
 

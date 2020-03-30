@@ -6,7 +6,7 @@
     <string name="loginButton">LOGIN</string>
     <string name="confirmPassword">CONFIRM PASSWORD</string>
     <string name="hintPassword">PASSWORD</string>
-    <string name="hintUsername">USERNAME</string>
+    <string name="hintUsername">COMPANY NAME</string>
     <string name="loginText">LOGIN</string>
     <string name="contButton">CONTINUE</string>
     <string name="my_profile">My Profile</string>
@@ -22,7 +22,7 @@
     <string name="audit_questions">AUDIT QUESTIONS</string>
     <string name="next_button">NEXT</string>
     <string name="tips_textview"></string>
-    
+
     //questions//
 
     <string name="answer_yes">YES</string>
@@ -39,7 +39,8 @@
     <string name="question_plants">Are there desk plants and indoor plants in your office ?</string>
     <string name="question_taps">Does your company have aeroated taps installed ?</string>
     <string name="question_flush">Does your company have dual flush toilets ?</string>
-    <string name="question_lights">Does your company have motion sensored lights installed ?</string>#
+    <string name="question_lights">Does your company have motion sensored lights installed ?</string>
+    #
     <string name="question_bulbs">Does your office use LED bulbs ? Or any other energy efficient alternative ?</string>
     <string name="question_thermostats">Does your office use programmable thermostats ?</string>
     <string name="question_draughts">Are there draught exclusers installed in your offices ?</string>
@@ -64,6 +65,15 @@
     <string name="answer_50000s">50,000 sheets</string>
     <string name="minimum_password">MUST BE LONGER THAN 6 CHARACTERS</string>
     <string name="auth_failed">Authenication Failed !</string>
+    <string name="areyouan_text">Are you an...</string>
+    <string name="SME_question">SME - Small/Medium Enterprise</string>
+    <string name="employer_question">Employer</string>
+    <string name="search_sme_name">Search SME name...</string>
+    <string name="score_text">You have a score of...</string>
+    <string name="score_value" >score</string>
+    <string name="backk_button">BACK</string>
+    <string name="backkk_button">BACK</string>
+    <string name="link_text">Link</string>
 
 
 </resources>

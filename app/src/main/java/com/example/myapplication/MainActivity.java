@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                                             AppAPI appAPI = AppAPI.getInstance();
                                             appAPI.setUserId(snapshot.getString("userId"));
                                             appAPI.setUsername(snapshot.getString("username"));
+                                            appAPI.setPassword(snapshot.getString("password"));
+                                            appAPI.setScore(snapshot.getString("score"));
 
                                             finish();
 
@@ -89,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         currentUser = firebaseAuth.getCurrentUser();
-        firebaseAuth.addAuthStateListener(authStateListener);
     }
 
     @Override

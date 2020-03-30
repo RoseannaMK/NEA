@@ -4,18 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:linksClickable="true"
     tools:context=".TipsActivity">
 
     <TextView
         android:id="@+id/tips_textview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="25sp"
+        android:layout_width="409dp"
+        android:layout_height="489dp"
         android:scrollbars="vertical"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backkk_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tips_textview"
+        app:layout_constraintVertical_bias="0.853" />
+
+    <TextView
+        android:id="@+id/hyperlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/link_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+//import com.google.firebase.firestore.auth.User;
 
 import java.util.Objects;
 
@@ -34,17 +35,15 @@ import util.AppAPI;
 
 public class LoginPage extends AppCompatActivity {
 
-    private EditText email_text,password_text, username_text;
+    private EditText email_text, password_text, username_text;
     private Button login_button;
     private Button sign_up_button;
-    //private ProgressBar progressBar;
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser currentUser;
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference collectionReference = db.collection("Users");
+    private FirebaseAuth.AuthStateListener authStateListener;
 
 
     @Override
@@ -57,98 +56,107 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //progressBar = findViewById(R.id.login_progress);
         Objects.requireNonNull(getSupportActionBar()).setElevation(0);
         firebaseAuth = FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginPage.this, HomePage.class));
-            finish();
-        }
-
-        setContentView(R.layout.activity_login_page);
-
-        email_text = findViewById(R.id.email_text);
-        password_text = findViewById(R.id.password_text);
-        username_text = findViewById(R.id.username_text);
-        login_button = findViewById(R.id.login_button);
-        sign_up_button = findViewById(R.id.sign_up_button);
-
-        sign_up_button.setOnClickListener(new View.OnClickListener() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginPage.this, SignUpPage.class));
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+                if (firebaseAuth.getCurrentUser() != null) {//if user is already logged in go straight to home page
+                    startActivity(new Intent(LoginPage.this, Options.class));
+                    finish();
+                }
+
+                setContentView(R.layout.activity_login_page);
+
+                email_text = findViewById(R.id.email_text);
+                password_text = findViewById(R.id.password_text);
+                username_text = findViewById(R.id.username_text);
+                login_button = findViewById(R.id.login_button);
+                sign_up_button = findViewById(R.id.sign_up_button);
+
+
+                sign_up_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(LoginPage.this, SignUpPage.class));
+                    }
+                });
+
+                login_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        String email = email_text.getText().toString();
+                        final String password = password_text.getText().toString();
+
+                        loginUser(email, password);
+
+                    }
+                });
             }
-        });
 
-        login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            private void loginUser(String email, String password) {
 
-                String email = email_text.getText().toString();
-                final String password = password_text.getText().toString();
+                if (!TextUtils.isEmpty(email)
+                        && !TextUtils.isEmpty(password)) {
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                                    assert user != null;
+                                    final String currentUserId = user.getUid();
+                                    collectionReference
+                                            .whereEqualTo("userId", currentUserId)
+                                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
+                                                                    @Nullable FirebaseFirestoreException e) {
 
-                loginUser(email, password);
+                                                    if (e != null) {
 
-            }
-        });
-        firebaseAuth = FirebaseAuth.getInstance();
+                                                    }
+                                                    assert queryDocumentSnapshots != null;
+                                                    if (!queryDocumentSnapshots.isEmpty()) {
 
-    }
-    private void loginUser(String email, String password) {
+                                                        for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                                                            AppAPI appAPI = AppAPI.getInstance();
+                                                            appAPI.setUsername(snapshot.getString("username"));
+                                                            appAPI.setUserId(snapshot.getString("userId"));
+                                                            appAPI.setPassword(snapshot.getString("password"));
+                                                            appAPI.setScore(snapshot.getString("score"));
 
-        if (!TextUtils.isEmpty(email)
-                && !TextUtils.isEmpty(password)) {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            assert user != null;
-                            final String currentUserId = user.getUid();
-                            collectionReference
-                                    .whereEqualTo("userId", currentUserId)
-                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots,
-                                                            @Nullable FirebaseFirestoreException e) {
-
-                                            if (e != null) {
-
-                                            }
-                                            assert queryDocumentSnapshots != null;
-                                            if (!queryDocumentSnapshots.isEmpty()) {
-
-                                                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                                                    AppAPI appAPI = AppAPI.getInstance();
-                                                    appAPI.setUsername(snapshot.getString("username"));
-                                                    appAPI.setUserId(snapshot.getString("userId"));
-
-                                                    //Go to home page
-                                                    startActivity(new Intent(LoginPage.this,
-                                                            HomePage.class));
+                                                            //Go to Options page
+                                                            startActivity(new Intent(LoginPage.this,
+                                                                    Options.class));
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        }
-                                    });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            //progressBar.setVisibility(View.INVISIBLE);
+                                            });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(LoginPage.this,
+                                            "Login failed",
+                                            Toast.LENGTH_LONG)
+                                            .show();
 
-                        }
-                    });
+                                }
+                            });
 
-        }else {
+                } else {
 
-            //progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(LoginPage.this,
-                    "Please enter email and password",
-                    Toast.LENGTH_LONG)
-                    .show();
-        }
+                    //progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(LoginPage.this,
+                            "Please enter email and password",
+                            Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        };
     }
 }

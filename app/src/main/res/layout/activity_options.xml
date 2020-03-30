@@ -4,39 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScoreActivity">
+    tools:context=".Options">
 
     <TextView
-        android:id="@+id/score_textview"
+        android:id="@+id/areyouan_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/score_text"
-        android:textSize="45sp"
+        android:text="@string/areyouan_text"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.219" />
 
-    <TextView
-        android:id="@+id/score_display"
+    <Button
+        android:id="@+id/sme_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="55sp"
+        android:text="@string/SME_question"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/back_button"
+        android:id="@+id/employer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/backk_button"
+        android:text="@string/employer_question"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.761" />
+        app:layout_constraintVertical_bias="0.644" />
 </androidx.constraintlayout.widget.ConstraintLayout>
